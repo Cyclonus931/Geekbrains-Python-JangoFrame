@@ -185,7 +185,20 @@ def category_update(request, pk):
 
 
 def category_delete(request, pk):
-    pass
+    title = 'категории/удаление'
+
+    category = get_object_or_404(ProductCategory, pk=pk)
+    if request.method == 'POST':
+        category.is_active = False
+        category.save()
+        return HttpResponseRedirect(reverse('admin_staff:categories'))
+
+    context = {
+        'title': title,
+        'category_to_delete': category
+    }
+
+    return render(request, 'adminapp/category_delete.html', context)
 
 
 def products(request, pk):
