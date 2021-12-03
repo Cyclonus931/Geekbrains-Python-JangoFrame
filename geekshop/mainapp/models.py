@@ -8,16 +8,6 @@ class ProductCategory(models.Model):
         unique=True,
     )
 
-from django.db import models
-
-
-class ProductCategory(models.Model):
-    name = models.CharField(
-        max_length=64,
-        verbose_name='имя',
-        unique=True,
-    )
-
     description = models.TextField(
         verbose_name='описание',
         blank=True,

@@ -48,9 +48,9 @@ INSTALLED_APPS = [
     'ordersapp',
 
     'social_django',
-#    'debug_toolbar',
-#    'template_profiler_panel',
-#    'django_extensions',
+    'debug_toolbar',
+    'template_profiler_panel',
+    'django_extensions',
 
 ]
 
@@ -71,7 +71,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
-#    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'geekshop.urls'
@@ -101,16 +101,15 @@ WSGI_APPLICATION = 'geekshop.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    #'default': {
-    #    'ENGINE': 'django.db.backends.sqlite3',
-    #    'NAME': BASE_DIR / 'db.sqlite3',
-    #}
-    #
     'default': {
-         'NAME': 'geekshop',
-         'ENGINE': 'django.db.backends.postgresql',
-         'USER': 'postgres',
-     }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+    # 'default': {
+    #     'NAME': 'geekshop',
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'USER': 'postgres',
+    # }
 
 }
 
@@ -149,8 +148,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATIC_URL = os.path.join("static")
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "geekshop", "static"),
@@ -212,19 +209,8 @@ SOCIAL_AUTH_PIPELINE = (
 )
 
 if DEBUG:
-    import socket  # only if you haven't already imported this
-
-    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-    INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + ['127.0.0.1', ]
-
-
     def show_toolbar(request):
         return True
-
-
-    DEBUG_TOOLBAR_CONFIG = {
-        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
-    }
 
 
     DEBUG_TOOLBAR_CONFIG = {
@@ -247,16 +233,3 @@ if DEBUG:
         'debug_toolbar.panels.profiling.ProfilingPanel',
         'template_profiler_panel.panels.template.TemplateProfilerPanel',
     ]
-if os.name == 'posix':
-   CACHE_MIDDLEWARE_ALIAS = 'default'
-   CACHE_MIDDLEWARE_SECONDS = 120
-   CACHE_MIDDLEWARE_KEY_PREFIX = 'geekshop'
-
-   CACHES = {
-       'default': {
-           'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-           'LOCATION': '127.0.0.1:11211',
-       }
-   }
-
-LOW_CACHE = True
